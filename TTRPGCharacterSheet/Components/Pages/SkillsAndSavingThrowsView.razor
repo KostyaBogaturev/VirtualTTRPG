@@ -1,0 +1,126 @@
+﻿@page "/abilityInfo"
+@rendermode InteractiveServer
+
+
+<h3>SkillsAndSavingThrowsView</h3>
+
+<div class="container">
+    <div><AbilityInfoView ProficiencyBonus="@ProficiencyBonus" AbilityInfo="@AbilityInfos[0]"></AbilityInfoView></div>
+    <div><AbilityInfoView ProficiencyBonus="@ProficiencyBonus" AbilityInfo="@AbilityInfos[1]"></AbilityInfoView></div>
+    <div><AbilityInfoView ProficiencyBonus="@ProficiencyBonus" AbilityInfo="@AbilityInfos[2]"></AbilityInfoView></div>
+    <div><AbilityInfoView ProficiencyBonus="@ProficiencyBonus" AbilityInfo="@AbilityInfos[3]"></AbilityInfoView></div>
+    <div><AbilityInfoView ProficiencyBonus="@ProficiencyBonus" AbilityInfo="@AbilityInfos[4]"></AbilityInfoView></div>
+    <div><AbilityInfoView ProficiencyBonus="@ProficiencyBonus" AbilityInfo="@AbilityInfos[5]"></AbilityInfoView></div>
+</div>
+
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .container > div {
+            flex: 1 1 50%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+</style>
+
+@code {
+    public int ProficiencyBonus { get { return 2; } }
+
+    public List<AbilityInfo> AbilityInfos { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        AbilityInfos = GenerateAbilitiesList();
+        return base.OnInitializedAsync();
+    }
+    
+
+    private List<AbilityInfo> GenerateAbilitiesList()
+    {
+        var abilities = new List<AbilityInfo>
+    {
+        new AbilityInfo
+            {
+                Name = "Strength",
+                BaseValue = 15,
+                ProficiencyInSavingThrow = true,
+                SavingThrowBonus = 2,
+                Skills = new List<Skill>
+                {
+                    new Skill { Name = "Athletics", AdditionalBonus = 0, Proficiency = ProficiencyLevel.Proficiency }
+                }
+            },
+            new AbilityInfo
+            {
+                Name = "Dexterity",
+                BaseValue = 14,
+                ProficiencyInSavingThrow = false,
+                SavingThrowBonus = 0,
+                Skills = new List<Skill>
+                {
+                    new Skill { Name = "Acrobatics", AdditionalBonus = 0, Proficiency = ProficiencyLevel.Expertise },
+                    new Skill { Name = "Sleight of Hand", AdditionalBonus = 0, Proficiency = ProficiencyLevel.JakeOfAllTrades },
+                    new Skill { Name = "Stealth", AdditionalBonus = 0, Proficiency = ProficiencyLevel.Proficiency }
+                }
+            },
+            new AbilityInfo
+            {
+                Name = "Constitution",
+                BaseValue = 13,
+                ProficiencyInSavingThrow = false,
+                SavingThrowBonus = 0,
+                Skills = new List<Skill>()
+            },
+            new AbilityInfo
+            {
+                Name = "Intelligence",
+                BaseValue = 12,
+                ProficiencyInSavingThrow = false,
+                SavingThrowBonus = 0,
+                Skills = new List<Skill>
+                {
+                    new Skill { Name = "Arcana", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "History", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "Investigation", AdditionalBonus = 0, Proficiency = ProficiencyLevel.Proficiency },
+                    new Skill { Name = "Nature", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "Religion", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None }
+                }
+            },
+            new AbilityInfo
+            {
+                Name = "Wisdom",
+                BaseValue = 10,
+                ProficiencyInSavingThrow = true,
+                SavingThrowBonus = 2,
+                Skills = new List<Skill>
+                {
+                    new Skill { Name = "Animal Handling", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "Insight", AdditionalBonus = 0, Proficiency = ProficiencyLevel.Proficiency },
+                    new Skill { Name = "Medicine", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "Perception", AdditionalBonus = 0, Proficiency = ProficiencyLevel.Proficiency },
+                    new Skill { Name = "Survival", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None }
+                }
+            },
+            new AbilityInfo
+            {
+                Name = "Charisma",
+                BaseValue = 8,
+                ProficiencyInSavingThrow = false,
+                SavingThrowBonus = 0,
+                Skills = new List<Skill>
+                {
+                    new Skill { Name = "Deception", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "Intimidation", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "Performance", AdditionalBonus = 0, Proficiency = ProficiencyLevel.None },
+                    new Skill { Name = "Persuasion", AdditionalBonus = 0, Proficiency = ProficiencyLevel.Proficiency }
+                }
+            }
+        };
+
+        return abilities;
+    }
+
+}

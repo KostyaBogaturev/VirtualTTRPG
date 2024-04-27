@@ -1,0 +1,74 @@
+﻿@page "/create"
+@rendermode InteractiveServer
+
+@inject TTRPGCharacterSheet.Contracts.IClassInfoService ClassInfoService
+@inject TTRPGCharacterSheet.Contracts.IRacesInfoService RacesInfoService
+@using TTRPGCharacterSheet.Models
+@using TTRPGCharacterSheet.Components.Shared
+
+<h3>CreateNewCharapter</h3>
+
+@*General information*@
+
+<input @bind="charapterInfo.Name" />
+<p>@charapterInfo?.Race?.Name</p>
+
+@*Rase*@
+<RaceDetails SetCharapterRace="(race)=> OnSetRace(race)"></RaceDetails>
+
+@*Class*@
+@if (classes?.Any() == true)
+{
+    <ul>
+        @foreach (var item in classes)
+        {
+            <div><button>@item.Name</button></div>
+        }
+    </ul>
+}
+
+@*Abilities*@
+
+
+@code {
+    private string? charapterName;
+
+    private CharapterInfoModel charapterInfo;
+
+    private List<CharapterClass> classes;
+    private List<Race> races;
+
+    private Race SelectedRace { get; set; }
+    private CharapterClass SelectedClass { get; set; }
+
+    private void OnSetRace(Race race)
+    {
+        if (charapterInfo?.Race?.Id != race.Id)
+        {
+            charapterInfo.Race = race;
+            StateHasChanged();
+        }
+    }
+
+    private async Task GetClassDetails(int id)
+    {
+        if (SelectedClass?.Id != id)
+        {
+            SelectedClass = null;
+            SelectedClass = await ClassInfoService.GetClassDetailsAsync(id);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        charapterInfo = new CharapterInfoModel();
+        var classTask = ClassInfoService.GetAvailableClassesListAsync();
+        var raceTask = RacesInfoService.GetAvailableRacesListAsync();
+
+        await Task.WhenAll(classTask, raceTask);
+
+        classes = classTask.Result;
+        races = raceTask.Result;
+    }
+
+}

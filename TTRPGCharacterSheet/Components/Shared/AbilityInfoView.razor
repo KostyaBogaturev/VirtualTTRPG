@@ -1,0 +1,159 @@
+﻿@using TTRPGCharacterSheet.Models;
+
+@if (AbilityInfo != null)
+{
+    <div class="ability-info">
+        <h2>@AbilityInfo.Name: @AbilityInfo.BaseValue</h2>
+        <p>Check:  @AbilityModifier</p>
+        <p>Saving Throw: @SavingThrowModifier</p>
+        @if (AbilityInfo.Skills?.Any() == true)
+        {
+            <h3>Skills:</h3>
+
+            <ul>
+                @foreach (var skill in AbilityInfo.Skills)
+                {
+                    var proficiencyClass = skill.Proficiency switch
+                    {
+                        ProficiencyLevel.None => "none",
+                        ProficiencyLevel.JakeOfAllTrades => "jake-of-all-trades",
+                        ProficiencyLevel.Proficiency => "proficiency",
+                        ProficiencyLevel.Expertise => "expertise",
+                        _ => string.Empty
+                    };
+
+                    <li class="@proficiencyClass">@skill.Name: @CalculateSkillModifier(skill)</li>
+                }
+
+            </ul>
+        }
+    </div>
+}
+
+<style>
+    .ability-info {
+        background-color: #1F1F2E; /* Dark background */
+        border: 1px solid #3F3F58; /* Slightly lighter border */
+        border-radius: 10px; /* Rounded corners */
+        color: #FFFFFF; /* White text */
+        padding: 20px;
+        margin: 10px 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+        .ability-info h2 {
+            color: #59AFFA; /* Blue accent color for the ability name and base value */
+            margin-bottom: 5px;
+        }
+
+        .ability-info h3 {
+            color: #59AFFA; /* Blue accent color for 'Skills' heading */
+            margin-top: 15px;
+        }
+
+        .ability-info p {
+            margin: 5px 0; /* Spacing for check and saving throw modifiers */
+        }
+
+        .ability-info ul {
+            list-style-type: none; /* Remove default list style */
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .ability-info li {
+            margin: 5px 0; /* Spacing for each skill */
+            position: relative; /* Position context for proficiency level indicator */
+            padding-left: 20px; /* Space for proficiency level indicator */
+        }
+
+            .ability-info li::before {
+                content: '';
+                width: 12px;
+                height: 12px;
+                border-radius: 50%; /* Circular indicator */
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            /* Style for each proficiency level */
+            .ability-info li.none::before {
+                background-color: #434357;
+            }
+            /* Default dark circle for no proficiency */
+            .ability-info li.jake-of-all-trades::before {
+                background-color: #50C878;
+            }
+            /* Green for JakeOfAllTrades */
+            .ability-info li.proficiency::before {
+                background-color: #FFDD57;
+            }
+            /* Yellow for Proficiency */
+            .ability-info li.expertise::before {
+                background-color: #FA5C5C;
+            }
+    /* Red for Expertise */
+
+</style>
+
+@code {
+    [Parameter]
+    public AbilityInfo AbilityInfo { get; set; }
+
+    [Parameter]
+    public int ProficiencyBonus { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (AbilityInfo == null)
+        {
+            throw new ArgumentNullException(nameof(AbilityInfo), "AbilityInfo cannot be null.");
+        }
+
+        if (ProficiencyBonus < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(ProficiencyBonus), "Proficiency Bonus must be non-negative.");
+        }
+    }
+
+    private int SavingThrowModifier
+    {
+        get
+        {
+            return AbilityModifier + AbilityInfo.SavingThrowBonus + (AbilityInfo.ProficiencyInSavingThrow ? ProficiencyBonus : 0);
+        }
+    }
+
+    private int AbilityModifier
+    {
+        get
+        {
+            return (AbilityInfo.BaseValue - 10) / 2;
+        }
+    }
+
+    private int CalculateSkillModifier(Skill skill)
+    {
+        return AbilityModifier + GetProficiencyBonus(skill.Proficiency) + skill.AdditionalBonus;
+    }
+
+    private int GetProficiencyBonus(ProficiencyLevel skillProficiency)
+    {
+        switch (skillProficiency)
+        {
+            case ProficiencyLevel.None:
+                return 0;
+            case ProficiencyLevel.Proficiency:
+                return ProficiencyBonus;
+            case ProficiencyLevel.Expertise:
+                return ProficiencyBonus * 2;
+            case ProficiencyLevel.JakeOfAllTrades:
+                return ProficiencyBonus / 2;
+            default:
+                return 0;
+        }
+    }
+
+}

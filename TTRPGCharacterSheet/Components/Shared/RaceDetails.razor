@@ -1,0 +1,51 @@
+﻿@using TTRPGCharacterSheet.Models
+@inject TTRPGCharacterSheet.Contracts.IRacesInfoService RacesInfoService
+
+
+@if (availableRaces?.Any() == true)
+{
+    <div class="container mt-3">
+        @foreach (var item in availableRaces)
+        {
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <button class="btn btn-primary" @onclick="() => GetRaceDetails(item.Id)">Details</button>
+                    <button class="btn btn-secondary" @onclick="() => SetCharapterRace.Invoke(item)">Choose Race</button>
+                </div>
+                @if (SelectedRace != null && SelectedRace.Id == item.Id)
+                {
+                    <div class="card-footer">
+                        <p class="text-muted">@SelectedRace.Description</p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Action<Race> SetCharapterRace { get; set; }
+
+    private Race SelectedRace;
+    private List<Race> availableRaces;
+
+    private async Task GetRaceDetails(int id)
+    {
+        if (SelectedRace?.Id != id)
+        {
+            SelectedRace = null;
+            SelectedRace = await RacesInfoService.GetRaceDetailsAsync(id);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (availableRaces == null)
+        {
+            availableRaces = await RacesInfoService.GetAvailableRacesListAsync();
+        }
+    }
+
+}
