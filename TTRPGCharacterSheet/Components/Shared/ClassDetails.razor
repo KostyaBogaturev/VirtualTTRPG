@@ -1,0 +1,50 @@
+﻿@inject IClassInfoService ClassInfoService
+
+
+@if (availableClasses?.Any() == true)
+{
+    <div class="container mt-3">
+        @foreach (var item in availableClasses)
+        {
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <button class="btn btn-primary" @onclick="() => GetClassDetails(item.Id)">Details</button>
+                    <button class="btn btn-secondary" @onclick="() => SetCharapterClass.Invoke(item)">Choose Class</button>
+                </div>
+                @if (selectedClass != null && selectedClass.Id == item.Id)
+                {
+                    <div class="card-footer">
+                        <p class="text-muted">@selectedClass.Description</p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Action<CharacterClass> SetCharapterClass { get; set; }
+
+    private CharacterClass selectedClass;
+    private List<CharacterClass> availableClasses;
+
+    private async Task GetClassDetails(int id)
+    {
+        if (selectedClass?.Id != id)
+        {
+            selectedClass = null;
+            selectedClass = await ClassInfoService.GetClassDetailsAsync(id);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (availableClasses == null)
+        {
+            availableClasses = await ClassInfoService.GetAvailableClassesListAsync();
+        }
+    }
+
+}

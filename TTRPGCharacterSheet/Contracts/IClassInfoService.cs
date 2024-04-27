@@ -4,7 +4,7 @@ namespace TTRPGCharacterSheet.Contracts
 {
     public interface IClassInfoService
     {
-        Task<List<CharapterClass>> GetAvailableClassesListAsync();
-        Task<CharapterClass> GetClassDetailsAsync(int classId);
+        Task<List<CharacterClass>> GetAvailableClassesListAsync();
+        Task<CharacterClass> GetClassDetailsAsync(int classId);
     }
 }

@@ -3,8 +3,6 @@
 
 @inject TTRPGCharacterSheet.Contracts.IClassInfoService ClassInfoService
 @inject TTRPGCharacterSheet.Contracts.IRacesInfoService RacesInfoService
-@using TTRPGCharacterSheet.Models
-@using TTRPGCharacterSheet.Components.Shared
 
 <h3>CreateNewCharapter</h3>
 
@@ -12,20 +10,13 @@
 
 <input @bind="charapterInfo.Name" />
 <p>@charapterInfo?.Race?.Name</p>
+<p>@charapterInfo?.CharacterClass?.Name</p>
 
 @*Rase*@
-<RaceDetails SetCharapterRace="(race)=> OnSetRace(race)"></RaceDetails>
+<RaceDetails SetCharapterRace="(race)=> OnSetRace(race)" />
 
 @*Class*@
-@if (classes?.Any() == true)
-{
-    <ul>
-        @foreach (var item in classes)
-        {
-            <div><button>@item.Name</button></div>
-        }
-    </ul>
-}
+<ClassDetails SetCharapterClass="(characterClass) => OnSetClass(characterClass)" />
 
 @*Abilities*@
 
@@ -35,17 +26,26 @@
 
     private CharapterInfoModel charapterInfo;
 
-    private List<CharapterClass> classes;
+    private List<CharacterClass> classes;
     private List<Race> races;
 
     private Race SelectedRace { get; set; }
-    private CharapterClass SelectedClass { get; set; }
+    private CharacterClass SelectedClass { get; set; }
 
     private void OnSetRace(Race race)
     {
         if (charapterInfo?.Race?.Id != race.Id)
         {
             charapterInfo.Race = race;
+            StateHasChanged();
+        }
+    }
+
+    private void OnSetClass(CharacterClass characterClass)
+    {
+        if (charapterInfo?.CharacterClass?.Id != characterClass.Id)
+        {
+            charapterInfo.CharacterClass = characterClass;
             StateHasChanged();
         }
     }
