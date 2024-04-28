@@ -10,7 +10,9 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <button class="btn btn-primary" @onclick="() => GetClassDetails(item.Id)">Details</button>
-                    <button class="btn btn-secondary" @onclick="() => SetCharapterClass.Invoke(item)">Choose Class</button>
+                    <button class="btn btn-secondary" @onclick="() => SetCharapterClass.Invoke(item)">
+                        @(selectedClass?.Id == item.Id ? "Choose Class": "Class Chosen")
+                    </button>
                 </div>
                 @if (selectedClass != null && selectedClass.Id == item.Id)
                 {

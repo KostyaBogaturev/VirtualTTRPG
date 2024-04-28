@@ -4,33 +4,92 @@
 @inject TTRPGCharacterSheet.Contracts.IClassInfoService ClassInfoService
 @inject TTRPGCharacterSheet.Contracts.IRacesInfoService RacesInfoService
 
-<h3>CreateNewCharapter</h3>
+<h3>CreateNewCharacter</h3>
 
-@*General information*@
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="general-tab" data-bs-toggle="tab" role="tab"
+           aria-selected="@(activeTab == CreateCharacterTabs.General)"
+           @onclick="() => SetActiveTab(CreateCharacterTabs.General)">
+            General Information
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="race-tab" data-bs-toggle="tab" role="tab"
+           aria-selected="@(activeTab == CreateCharacterTabs.Race)"
+           @onclick="() => SetActiveTab(CreateCharacterTabs.Race)">
+            Race
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="class-tab" data-bs-toggle="tab" role="tab"
+           aria-selected="@(activeTab == CreateCharacterTabs.Class)"
+           @onclick="() => SetActiveTab(CreateCharacterTabs.Class)">
+            Class
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="class-tab" data-bs-toggle="tab" role="tab"
+           aria-selected="@(activeTab == CreateCharacterTabs.Abilities)"
+           @onclick="() => SetActiveTab(CreateCharacterTabs.Abilities)">
+            Abilities
+        </a>
+    </li>
+</ul>
 
-<input @bind="charapterInfo.Name" />
-<p>@charapterInfo?.Race?.Name</p>
-<p>@charapterInfo?.CharacterClass?.Name</p>
 
-@*Rase*@
-<RaceDetails SetCharapterRace="(race)=> OnSetRace(race)" />
 
-@*Class*@
-<ClassDetails SetCharapterClass="(characterClass) => OnSetClass(characterClass)" />
-
-@*Abilities*@
-
+@if (activeTab == CreateCharacterTabs.General)
+{
+    <div>
+        <input @bind="charapterInfo.Name" />
+        <p>Character race: @charapterInfo?.Race?.Name</p>
+        <p>Character class: @charapterInfo?.CharacterClass?.Name</p>
+    </div>
+}
+@if (activeTab == CreateCharacterTabs.Race)
+{
+    <div>
+        <RaceDetails SetCharapterRace="(race) => OnSetRace(race)" />
+    </div>
+}
+@if (activeTab == CreateCharacterTabs.Class)
+{
+    <div>
+        <ClassDetails SetCharapterClass="(characterClass) => OnSetClass(characterClass)" />
+    </div>
+}
+@if (activeTab == CreateCharacterTabs.Abilities)
+{
+    <div>
+        <SetCharacterAbilities />
+    </div>
+}
 
 @code {
-    private string? charapterName;
+    private CreateCharacterTabs activeTab = CreateCharacterTabs.General;
+
+    private enum CreateCharacterTabs
+    {
+        General,
+        Race,
+        Class,
+        Abilities
+    }
 
     private CharapterInfoModel charapterInfo;
 
     private List<CharacterClass> classes;
     private List<Race> races;
 
-    private Race SelectedRace { get; set; }
-    private CharacterClass SelectedClass { get; set; }
+    private void SetActiveTab(CreateCharacterTabs tab)
+    {
+        if (activeTab != tab)
+        {
+            activeTab = tab;
+            StateHasChanged();
+        }
+    }
 
     private void OnSetRace(Race race)
     {
@@ -50,15 +109,6 @@
         }
     }
 
-    private async Task GetClassDetails(int id)
-    {
-        if (SelectedClass?.Id != id)
-        {
-            SelectedClass = null;
-            SelectedClass = await ClassInfoService.GetClassDetailsAsync(id);
-        }
-    }
-
     protected override async Task OnInitializedAsync()
     {
         charapterInfo = new CharapterInfoModel();
@@ -70,5 +120,4 @@
         classes = classTask.Result;
         races = raceTask.Result;
     }
-
 }

@@ -1,0 +1,52 @@
+﻿<h3>Ability Scores</h3>
+
+<span>Choose Generation Method</span>
+<select @onchange="HandleChange">
+    <option value="@GenerationMode.StandartArray"
+            selected="@(selectedGenerationMode==GenerationMode.StandartArray)">
+        Standart Array
+    </option>
+    <option value="@GenerationMode.PointBy"
+            selected="@(selectedGenerationMode==GenerationMode.PointBy)">
+        Point By
+    </option>
+    <option value="@GenerationMode.RollInApp"
+            selected="@(selectedGenerationMode==GenerationMode.RollInApp)">
+        In App Roll
+    </option>
+    <option value="@GenerationMode.SetManual"
+            selected="@(selectedGenerationMode==GenerationMode.SetManual)">
+        Manual
+    </option>
+</select>
+
+
+@if (selectedGenerationMode == GenerationMode.PointBy)
+{
+    <SetPointByAbilities />
+}
+
+
+@code {
+    private GenerationMode selectedGenerationMode;
+
+    private enum GenerationMode
+    {
+        StandartArray,
+        PointBy,
+        RollInApp,
+        SetManual
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        selectedGenerationMode = GenerationMode.PointBy;
+        return base.OnInitializedAsync();
+    }
+
+    private void HandleChange(ChangeEventArgs e)
+    {
+        selectedGenerationMode = (GenerationMode)Enum.Parse(typeof(GenerationMode), e.Value.ToString());
+        StateHasChanged();
+    }
+}

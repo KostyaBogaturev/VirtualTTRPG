@@ -1,0 +1,98 @@
+﻿
+<h4 class="mb-3">POINTS REMAINING: @pointsRemaining / 27</h4>
+<div class="row">
+    @foreach (var cattribute in Attributes)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label>@cattribute.Name:</label>
+                <select class="form-control" @onchange="(e) => UpdatePointsRemaining(cattribute, e)">
+                    @foreach (var option in cattribute.Options)
+                    {
+                        <option value="@option.Key">@option.Key @(@option.Value != 0 ? $"{@option.Value} Points" : string.Empty)</option>
+                    }
+                </select>
+                <small class="form-text text-muted">Total: @cattribute.Total</small>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+
+    private int pointsRemaining;
+
+    public List<CharacterAttribute> Attributes { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        Attributes = new List<CharacterAttribute>
+        {
+            new CharacterAttribute { Name = "Strength", Value = 8, Options = GetPointCosts() },
+            new CharacterAttribute { Name = "Dexterity", Value = 8, Options = GetPointCosts() },
+            new CharacterAttribute { Name = "Constitution", Value = 8, Options = GetPointCosts() },
+            new CharacterAttribute { Name = "Intelligence", Value = 8, Options = GetPointCosts() },
+            new CharacterAttribute { Name = "Wisdom", Value = 8, Options = GetPointCosts() },
+            new CharacterAttribute { Name = "Charisma", Value = 8, Options = GetPointCosts() }
+        };
+
+        return base.OnInitializedAsync();
+    }
+
+    private void UpdatePointsRemaining(CharacterAttribute attribute, ChangeEventArgs e)
+    {
+        var changedAtribure = Attributes.First(a => a.Name.Equals(attribute.Name));
+        changedAtribure.Value = int.Parse(e.Value.ToString());
+
+        var totalSpent = Attributes.Sum(a => CalculatePointCost(a.Value, 8));
+        pointsRemaining = 27 - totalSpent;
+
+        foreach (var item in Attributes)
+        {
+            item.Options = GetPointCosts(item.Value);
+        }
+
+        StateHasChanged();
+    }
+
+    private int CalculatePointCost(int currentValue, int newCost)
+    {
+        Dictionary<int, int> costChart = new Dictionary<int, int>
+        {
+            {8, 0},
+            {9, 1},
+            {10, 2},
+            {11, 3},
+            {12, 4},
+            {13, 5},
+            {14, 7},
+            {15, 9}
+        };
+
+        return costChart[currentValue] - costChart[newCost];
+    }
+
+    private Dictionary<int, int> GetPointCosts(int currentValue = 8)
+    {
+        var pointsCost = new Dictionary<int, int>();
+
+        for (int i = 8; i <= 15; i++)
+        {
+            int cost = CalculatePointCost(currentValue, i);
+            if (cost > pointsRemaining)
+                break;
+
+            pointsCost.Add(i, cost);
+        }
+
+        return pointsCost;
+    }
+
+    public class CharacterAttribute
+    {
+        public string Name { get; set; }
+        public int Value { get; set; }
+        public Dictionary<int, int> Options { get; set; }
+        public int Total => Value;
+    }
+}
