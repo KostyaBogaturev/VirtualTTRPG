@@ -1,18 +1,21 @@
 ﻿
 <h4 class="mb-3">POINTS REMAINING: @pointsRemaining / 27</h4>
 <div class="row">
-    @foreach (var cattribute in Attributes)
+    @foreach (var abilityScore in Attributes)
     {
         <div class="col-md-4 mb-3">
             <div class="form-group">
-                <label>@cattribute.Name:</label>
-                <select class="form-control" @onchange="(e) => UpdatePointsRemaining(cattribute, e)">
-                    @foreach (var option in cattribute.Options)
+                <label>@abilityScore.Name:</label>
+                <select class="form-control" @onchange="(e) => UpdatePointsRemaining(abilityScore, e)">
+                    @foreach (var option in abilityScore.Options)
                     {
-                        <option value="@option.Key">@option.Key @(@option.Value != 0 ? $"{@option.Value} Points" : string.Empty)</option>
+                        <option value="@option.Key"
+                                selected="@(option.Key == option.Value)">
+                            @option.Key @(@option.Value != 0 ? $"({@option.Value} Points)" : string.Empty)
+                        </option>
                     }
                 </select>
-                <small class="form-text text-muted">Total: @cattribute.Total</small>
+                <small class="form-text text-muted">Total: @abilityScore.Value</small>
             </div>
         </div>
     }
@@ -26,6 +29,8 @@
 
     protected override Task OnInitializedAsync()
     {
+        pointsRemaining = 27;
+
         Attributes = new List<CharacterAttribute>
         {
             new CharacterAttribute { Name = "Strength", Value = 8, Options = GetPointCosts() },
@@ -79,8 +84,8 @@
         for (int i = 8; i <= 15; i++)
         {
             int cost = CalculatePointCost(currentValue, i);
-            if (cost > pointsRemaining)
-                break;
+            if (pointsRemaining + cost < 0)
+                continue;
 
             pointsCost.Add(i, cost);
         }
@@ -93,6 +98,5 @@
         public string Name { get; set; }
         public int Value { get; set; }
         public Dictionary<int, int> Options { get; set; }
-        public int Total => Value;
     }
 }
