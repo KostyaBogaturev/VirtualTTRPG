@@ -1,0 +1,71 @@
+﻿
+<div class="container">
+    <div class="row">
+        @foreach (var attr in attributeNames)
+        {
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>@attr</label>
+                    <input class="form-control" name="@attr" type="number" min="3" max="30"
+                           @oninput="@(e => OnInputChange(attr, e.Value.ToString()))" />
+                    @if (validationMessages.ContainsKey(attr) && !string.IsNullOrEmpty(validationMessages[attr]))
+                    {
+                        <div class="text-danger">@validationMessages[attr]</div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    private List<CharacterAttributes> characterAttributes;
+    private string[] attributeNames = new[]
+    {
+        "Strength",
+        "Dexterity",
+        "Constitution",
+        "Intelligence",
+        "Wisdom",
+        "Charisma"
+    };
+    private Dictionary<string, string> validationMessages = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        characterAttributes = new();
+        foreach (var item in attributeNames)
+        {
+            characterAttributes.Add(new CharacterAttributes()
+            {
+                AttributeName = item
+            });
+            // Initialize validation messages with empty strings for each attribute
+            validationMessages[item] = string.Empty;
+        }
+
+        return base.OnInitializedAsync();
+    }
+
+    private void OnInputChange(string attrName, string valueStr)
+    {
+        validationMessages[attrName] = string.Empty;
+
+
+        if (!int.TryParse(valueStr, out int value) || value < 3 || value > 30)
+        {
+            validationMessages[attrName] = "Attribute value must be in the range from 3 to 30";
+            return;
+        }
+
+        var attributeToChange = characterAttributes.First(a => a.AttributeName.Equals(attrName));
+        attributeToChange.Value = value;
+    }
+
+    private class CharacterAttributes
+    {
+        public string AttributeName { get; set; }
+        public int Value { get; set; }
+    }
+}

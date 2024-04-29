@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTRPGCharacterSheet", "TTRPGCharacterSheet\TTRPGCharacterSheet.csproj", "{1FBB5ACF-B0E2-411D-9BC6-92626C6423CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTRPGCharacterSheet", "TTRPGCharacterSheet\TTRPGCharacterSheet.csproj", "{1FBB5ACF-B0E2-411D-9BC6-92626C6423CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
