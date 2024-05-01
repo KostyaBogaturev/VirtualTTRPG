@@ -29,11 +29,14 @@ else if (selectedGenerationMode == GenerationMode.StandartArray)
 {
     <SetStandartArrayAbilities />
 }
-else if(selectedGenerationMode == GenerationMode.SetManual)
+else if (selectedGenerationMode == GenerationMode.SetManual)
 {
     <SetAbilitiesManual />
 }
-
+else if (selectedGenerationMode == GenerationMode.RollInApp)
+{
+    <RollAbilitiesInApp />
+}
 
 @code {
     private GenerationMode selectedGenerationMode;

@@ -1,5 +1,14 @@
 ﻿
+<div class="col-3">
+    <button class="btn btn-primary" @onclick="RollAbilities">Roll</button>
+    @if (Options.Any())
+    {
+        <p>Total: @Options.Sum()</p>
+    }
+</div>
+
 <div class="row">
+
     @foreach (var abilityScore in Attributes)
     {
         <div class="col-md-4 mb-3">
@@ -10,7 +19,7 @@
                             selected="@(abilityScore.Value == 0)">
                         --
                     </option>
-                    @foreach (var option in abilityScore.Options)
+                    @foreach (var option in Options)
                     {
                         <option value="@option"
                                 selected="@(option == abilityScore.Value)">
@@ -27,6 +36,30 @@
 @code {
 
     public List<CharacterAttribute> Attributes { get; set; }
+
+    private List<int> Options = new();
+
+
+
+    private void RollAbilities()
+    {
+        var result = new List<int>();
+        Random random = new Random();
+
+        for (int j = 0; j < Attributes.Count; j++)
+        {
+
+            int[] numbers = new int[4];
+
+            for (int i = 0; i < numbers.Length; i++)
+                numbers[i] = random.Next(1, 7);
+
+            result.Add(numbers.OrderBy(n => n).Skip(1).Sum());
+        }
+
+        Options = result;
+        StateHasChanged();
+    }
 
     protected override Task OnInitializedAsync()
     {
