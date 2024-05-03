@@ -1,0 +1,103 @@
+﻿@using TTRPGCharacterSheet.Components.BaseComponents;
+@inherits SetAbilitiesBase;
+
+<div class="col-3">
+    <button class="btn btn-primary" @onclick="RollAbilities">Roll</button>
+    @if (Options.Any())
+    {
+        <p>Total: @Options.Sum()</p>
+    }
+</div>
+
+<EditForm OnValidSubmit="ApplyAttributes" EditContext="editContext" FormName="@abilitiesFormName">
+    <div class="row">
+        @foreach (var abilityScore in CharacterAttributesFormModel.Attributes)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label>@abilityScore.Value:</label>
+
+                    <InputSelect ValueExpression="@(() => abilityScore.Name)"
+                                 Value="@abilityScore.Name"
+                                 ValueChanged="@((string value)=>UpdatePointsRemaining(abilityScore, value))"
+                                 class="form-control">
+                        <option value="@string.Empty"
+                                selected="@(abilityScore.Id is null)">
+                            --
+                        </option>
+                        @foreach (var option in (CharacterAttribute[])Enum.GetValues(typeof(CharacterAttribute)))
+                        {
+                            <option value="@option.ToString()"
+                                    selected="@(option == abilityScore.Id)">
+                                @option
+                            </option>
+                        }
+                    </InputSelect>
+                    <small class="form-text text-muted">Total: @abilityScore.Value</small>
+                </div>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private List<int> Options = new();
+
+    public override AbilitiesGenerationMode GenerationMode
+    {
+        get => AbilitiesGenerationMode.RollInApp;
+    }
+
+    protected override void HandleValidationRequested(object sender, ValidationRequestedEventArgs args)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void RollAbilities()
+    {
+        var result = new List<int>();
+        Random random = new Random();
+
+        for (int j = 0; j < CharacterAttributesFormModel.Attributes.Count; j++)
+        {
+            int[] numbers = new int[4];
+
+            for (int i = 0; i < numbers.Length; i++)
+                numbers[i] = random.Next(1, 7);
+
+            var value = numbers.OrderBy(n => n).Skip(1).Sum();
+
+            result.Add(value);
+            CharacterAttributesFormModel.Attributes[j].Id = null;
+            CharacterAttributesFormModel.Attributes[j].Value = value;
+        }
+
+        Options = result;
+
+        StateHasChanged();
+    }
+
+
+    private void UpdatePointsRemaining(CharacterAttributeModel attribute, string attributeName)
+    {
+        CharacterAttribute? attributeId = string.IsNullOrEmpty(attributeName) ? null : abilityToName[attributeName];
+
+        if (attributeId is not null)
+        {
+
+            var duplicate = CharacterAttributesFormModel.Attributes
+                                .FirstOrDefault(attr => attr.Id == attributeId && attr.Value != attribute.Value);
+
+            if (duplicate != null)
+            {
+                duplicate.Id = null;
+                duplicate.Name = string.Empty;
+            }
+        }
+
+        attribute.Id = attributeId;
+        attribute.Name = attributeName;
+    }
+}

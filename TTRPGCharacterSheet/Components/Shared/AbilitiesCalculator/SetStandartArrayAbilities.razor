@@ -24,6 +24,39 @@
     }
 </div>
 
+
+@* <EditForm OnValidSubmit="ApplyAttributes" EditContext="editContext" FormName="@abilitiesFormName">
+    <div class="row">
+        @foreach (var abilityScore in CharacterAttributesFormModel.Attributes)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    <label>@abilityScore.Name:</label>
+                    <InputSelect ValueExpression="@(()=>abilityScore.Value)"
+                                 Value="@abilityScore.Value"
+                                 ValueChanged="@((int value)=>UpdatePointsRemainingInt(abilityScore, value))"
+                                 class="form-control">
+                        <option value="0"
+                                selected="@(abilityScore.Value == 0)">
+                            --
+                        </option>
+                        @foreach (var option in Options)
+                        {
+                            <option value="@option"
+                                    selected="@(option == abilityScore.Value)">
+                                @option
+                            </option>
+                        }
+                    </InputSelect>
+                    <small class="form-text text-muted">Total: @abilityScore.Value</small>
+                </div>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm> *@
+
 @code {
 
     public List<CharacterAttribute> Attributes { get; set; }

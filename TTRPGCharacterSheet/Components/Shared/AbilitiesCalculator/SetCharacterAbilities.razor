@@ -1,0 +1,50 @@
+﻿<h3>Ability Scores</h3>
+
+<span>Choose Generation Method</span>
+<select @onchange="HandleChange">
+    <option value="@AbilitiesGenerationMode.StandartArray"
+            selected="@(selectedGenerationMode==AbilitiesGenerationMode.StandartArray)">
+        Standart Array
+    </option>
+    <option value="@AbilitiesGenerationMode.PointBy"
+            selected="@(selectedGenerationMode==AbilitiesGenerationMode.PointBy)">
+        Point By
+    </option>
+    <option value="@AbilitiesGenerationMode.RollInApp"
+            selected="@(selectedGenerationMode==AbilitiesGenerationMode.RollInApp)">
+        In App Roll
+    </option>
+    <option value="@AbilitiesGenerationMode.SetManual"
+            selected="@(selectedGenerationMode==AbilitiesGenerationMode.SetManual)">
+        Manual
+    </option>
+</select>
+
+
+@if (selectedGenerationMode == AbilitiesGenerationMode.PointBy)
+{
+    <SetPointByAbilities />
+}
+else if (selectedGenerationMode == AbilitiesGenerationMode.StandartArray)
+{
+    <SetStandartArrayAbilities />
+}
+else if (selectedGenerationMode == AbilitiesGenerationMode.SetManual)
+{
+    <SetAbilitiesManual />
+}
+else if (selectedGenerationMode == AbilitiesGenerationMode.RollInApp)
+{
+    <RollAbilitiesInApp CharacterAttributes="CharacterAttributes" />
+}
+
+@code {
+    private AbilitiesGenerationMode selectedGenerationMode = AbilitiesGenerationMode.StandartArray;
+    public CharacterAttributesModel CharacterAttributes { get; set; } = new();
+
+    private void HandleChange(ChangeEventArgs e)
+    {
+        selectedGenerationMode = (AbilitiesGenerationMode)Enum.Parse(typeof(AbilitiesGenerationMode), e.Value.ToString());
+        StateHasChanged();
+    }
+}
