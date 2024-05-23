@@ -1,4 +1,6 @@
-﻿namespace TTRPGCharacterSheet.Models
+﻿using System.Text.Json.Serialization;
+
+namespace TTRPGCharacterSheet.Models
 {
     public class CharapterInfoModel
     {
@@ -14,7 +16,9 @@
     public class CharacterClass
     {
         public int Id {  get; set; }
+
         public string Name { get; set; }
+
         public string Description { get; set; }
     }
 

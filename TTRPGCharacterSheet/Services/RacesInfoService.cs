@@ -1,4 +1,5 @@
-﻿using TTRPGCharacterSheet.Contracts;
+﻿using System.Text.Json;
+using TTRPGCharacterSheet.Contracts;
 using TTRPGCharacterSheet.Models;
 
 namespace TTRPGCharacterSheet.Services
@@ -12,9 +13,15 @@ namespace TTRPGCharacterSheet.Services
             new Race { Id = 3, Name = "Human", Description = "Human" }
         };
 
-        public Task<List<Race>> GetAvailableRacesListAsync()
+        public async Task<List<Race>> GetAvailableRacesListAsync()
         {
-            return Task.FromResult(races);
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Resources\\Races.json");
+
+            string jsonString = await File.ReadAllTextAsync(filePath);
+
+            var races = JsonSerializer.Deserialize<List<Race>>(jsonString) ?? new();
+
+            return races;
         }
 
         public Task<Race> GetRaceDetailsAsync(int raceId)

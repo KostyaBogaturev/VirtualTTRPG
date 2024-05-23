@@ -1,112 +1,83 @@
-﻿
-<div class="row">
-    @foreach (var abilityScore in Attributes)
-    {
-        <div class="col-md-4 mb-3">
-            <div class="form-group">
-                <label>@abilityScore.Name:</label>
-                <select class="form-control" @onchange="(e) => UpdatePointsRemaining(abilityScore, e)">
-                    <option value="0"
-                            selected="@(abilityScore.Value == 0)">
-                        --
-                    </option>
-                    @foreach (var option in abilityScore.Options)
-                    {
-                        <option value="@option"
-                                selected="@(option == abilityScore.Value)">
-                            @option
-                        </option>
-                    }
-                </select>
-                <small class="form-text text-muted">Total: @abilityScore.Value</small>
-            </div>
-        </div>
-    }
-</div>
+﻿@using TTRPGCharacterSheet.Components.BaseComponents;
+@inherits SetAbilitiesBase;
 
-
-@* <EditForm OnValidSubmit="ApplyAttributes" EditContext="editContext" FormName="@abilitiesFormName">
+<EditForm OnValidSubmit="ApplyAttributes" EditContext="editContext" FormName="@abilitiesFormName">
     <div class="row">
         @foreach (var abilityScore in CharacterAttributesFormModel.Attributes)
         {
             <div class="col-md-4 mb-3">
                 <div class="form-group">
-                    <label>@abilityScore.Name:</label>
-                    <InputSelect ValueExpression="@(()=>abilityScore.Value)"
-                                 Value="@abilityScore.Value"
-                                 ValueChanged="@((int value)=>UpdatePointsRemainingInt(abilityScore, value))"
+                    <label>@abilityScore.Value:</label>
+
+                    <InputSelect ValueExpression="@(() => abilityScore.Name)"
+                                 Value="@abilityScore.Name"
+                                 ValueChanged="@((string value)=>UpdatePointsRemaining(abilityScore, value))"
                                  class="form-control">
-                        <option value="0"
-                                selected="@(abilityScore.Value == 0)">
-                            --
-                        </option>
-                        @foreach (var option in Options)
+                        <option value="@string.Empty" selected="@(abilityScore.Id == null)">--</option>
+                        @foreach (var option in (CharacterAttribute[])Enum.GetValues(typeof(CharacterAttribute)))
                         {
-                            <option value="@option"
-                                    selected="@(option == abilityScore.Value)">
-                                @option
-                            </option>
+                            <option value="@option.ToString()" selected="@(option == abilityScore.Id)">@option</option>
                         }
                     </InputSelect>
-                    <small class="form-text text-muted">Total: @abilityScore.Value</small>
+                    <ValidationMessage For="@(() => abilityScore.Value)" />
                 </div>
             </div>
         }
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-</EditForm> *@
+</EditForm>
 
 @code {
+    private int[] options = new[] { 15, 14, 13, 12, 10, 8 };
 
-    public List<CharacterAttribute> Attributes { get; set; }
-
-    protected override Task OnInitializedAsync()
+    public override AbilitiesGenerationMode GenerationMode
     {
-        Attributes = new List<CharacterAttribute>
-        {
-            new CharacterAttribute { Name = "Strength" },
-            new CharacterAttribute { Name = "Dexterity" },
-            new CharacterAttribute { Name = "Constitution" },
-            new CharacterAttribute { Name = "Intelligence" },
-            new CharacterAttribute { Name = "Wisdom" },
-            new CharacterAttribute { Name = "Charisma" }
-        };
-
-        foreach (var item in Attributes)
-        {
-            item.Options = GetAvailableOptions(item.Name);
-        }
-
-        return base.OnInitializedAsync();
+        get => AbilitiesGenerationMode.StandartArray;
     }
 
-    private void UpdatePointsRemaining(CharacterAttribute attribute, ChangeEventArgs e)
-    {
-        var changedAtribure = Attributes.First(a => a.Name.Equals(attribute.Name));
-        changedAtribure.Value = int.Parse(e.Value.ToString());
 
-        foreach (var item in Attributes)
+    protected override void HandleValidationRequested(object sender, ValidationRequestedEventArgs args)
+    {
+        messageStore?.Clear();
+
+        foreach (var attribute in CharacterAttributesFormModel.Attributes)
+            if (attribute.Id == null || attribute.Name == string.Empty)
+                messageStore?.Add(() => attribute.Value, "Please select a value");
+    }
+
+
+    private void RollAbilities()
+    {
+        for (int j = 0; j < options.Length; j++)
         {
-            item.Options = GetAvailableOptions(item.Name);
+            CharacterAttributesFormModel.Attributes[j].Id = null;
+            CharacterAttributesFormModel.Attributes[j].Value = options[j];
         }
 
         StateHasChanged();
     }
 
-    private IEnumerable<int> GetAvailableOptions(string name)
+
+    private void UpdatePointsRemaining(CharacterAttributeModel attribute, string attributeName)
     {
-        var allOptions = new int[] { 15, 14, 13, 12, 10, 8 };
+        messageStore?.Clear();
+        CharacterAttribute? attributeId = string.IsNullOrEmpty(attributeName) ? null : abilityToName[attributeName];
 
-        var r = Attributes.Where(a => !a.Name.Equals(name)).Select(a => a.Value);
+        if (attributeId is not null)
+        {
 
-        return allOptions.Where(op => r.All(a => a != op));
-    }
+            var duplicate = CharacterAttributesFormModel.Attributes
+                                .FirstOrDefault(attr => attr.Id == attributeId && attr.Value != attribute.Value);
 
-    public class CharacterAttribute
-    {
-        public string Name { get; set; }
-        public int Value { get; set; }
-        public IEnumerable<int> Options { get; set; }
+            if (duplicate != null)
+            {
+                duplicate.Id = null;
+                duplicate.Name = string.Empty;
+            }
+        }
+
+        attribute.Id = attributeId;
+        attribute.Name = attributeName;
     }
 }

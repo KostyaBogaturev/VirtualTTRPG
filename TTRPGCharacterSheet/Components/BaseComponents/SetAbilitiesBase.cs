@@ -35,7 +35,7 @@ namespace TTRPGCharacterSheet.Components.BaseComponents
         {
             CharacterAttributesFormModel = CharacterAttributes;
 
-            if (GenerationMode != CharacterAttributesFormModel.Mode)
+            //if (GenerationMode != CharacterAttributesFormModel.Mode)
                 ResetAttributes();
 
             CharacterAttributesFormModel.Mode = CharacterAttributes.Mode = GenerationMode;

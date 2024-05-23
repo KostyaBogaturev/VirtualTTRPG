@@ -4,24 +4,27 @@
 @if (availableRaces?.Any() == true)
 {
     <div class="container mt-3">
-        @foreach (var item in availableRaces)
-        {
-            <div class="card mb-2">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <button class="btn btn-primary" @onclick="() => GetRaceDetails(item.Id)">Details</button>
-                    <button class="btn btn-secondary" @onclick="() => SetCharapterRace.Invoke(item)">Choose Race</button>
-                </div>
-                @if (SelectedRace != null && SelectedRace.Id == item.Id)
-                {
-                    <div class="card-footer">
-                        <p class="text-muted">@SelectedRace.Description</p>
+        <div class="d-flex flex-wrap">
+            @foreach (var item in availableRaces)
+            {
+                <div class="card mb-2 me-2" style="flex: 1 1 calc(25% - 1rem); box-sizing: border-box;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <button class="btn btn-primary" @onclick="() => GetRaceDetails(item.Id)">Details</button>
+                        <button class="btn btn-secondary" @onclick="() => SetCharapterRace.Invoke(item)">Choose Race</button>
                     </div>
-                }
-            </div>
-        }
+                    @if (SelectedRace != null && SelectedRace.Id == item.Id)
+                    {
+                        <div class="card-footer">
+                            <p class="text-muted">@SelectedRace.Description</p>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
     </div>
 }
+
 
 @code {
     [Parameter]

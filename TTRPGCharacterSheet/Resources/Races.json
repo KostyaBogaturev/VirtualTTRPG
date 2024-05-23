@@ -1,0 +1,752 @@
+[
+    {
+        "Id": 1,
+        "Name": "Aarakocra",
+        "Description": "POA"
+    },
+    {
+        "Id": 2,
+        "Name": "Aasimar",
+        "Description": "VGM"
+    },
+    {
+        "Id": 3,
+        "Name": "Autognome",
+        "Description": "SAS"
+    },
+    {
+        "Id": 4,
+        "Name": "Astral elf",
+        "Description": "SAS"
+    },
+    {
+        "Id": 5,
+        "Name": "Bugbear",
+        "Description": "VGM"
+    },
+    {
+        "Id": 6,
+        "Name": "Vedalken",
+        "Description": "GGR"
+    },
+    {
+        "Id": 7,
+        "Name": "Verdan",
+        "Description": "AI"
+    },
+    {
+        "Id": 8,
+        "Name": "Simic hybrid",
+        "Description": "GGR"
+    },
+    {
+        "Id": 9,
+        "Name": "Gith",
+        "Description": "MTF"
+    },
+    {
+        "Id": 10,
+        "Name": "Giff",
+        "Description": "SAS"
+    },
+    {
+        "Id": 11,
+        "Name": "Gnome",
+        "Description": "PH"
+    },
+    {
+        "Id": 12,
+        "Name": "Goblin",
+        "Description": "VGM"
+    },
+    {
+        "Id": 13,
+        "Name": "Goliath",
+        "Description": "VGM"
+    },
+    {
+        "Id": 14,
+        "Name": "Grung",
+        "Description": "OGA"
+    },
+    {
+        "Id": 15,
+        "Name": "Dwarf",
+        "Description": "PH"
+    },
+    {
+        "Id": 16,
+        "Name": "Genasi",
+        "Description": "POA"
+    },
+    {
+        "Id": 17,
+        "Name": "Dragonborn",
+        "Description": "PH"
+    },
+    {
+        "Id": 18,
+        "Name": "Harengon",
+        "Description": "WBW"
+    },
+    {
+        "Id": 19,
+        "Name": "Kalashtar",
+        "Description": "RLW"
+    },
+    {
+        "Id": 20,
+        "Name": "Kender",
+        "Description": "SDQ"
+    },
+    {
+        "Id": 21,
+        "Name": "Kenku",
+        "Description": "VGM"
+    },
+    {
+        "Id": 22,
+        "Name": "Centaur",
+        "Description": "GGR"
+    },
+    {
+        "Id": 23,
+        "Name": "Kobold",
+        "Description": "VGM"
+    },
+    {
+        "Id": 24,
+        "Name": "Warforged",
+        "Description": "RLW"
+    },
+    {
+        "Id": 25,
+        "Name": "Leonin",
+        "Description": "MOT"
+    },
+    {
+        "Id": 26,
+        "Name": "Locathah",
+        "Description": "LR"
+    },
+    {
+        "Id": 27,
+        "Name": "Loxodon",
+        "Description": "GGR"
+    },
+    {
+        "Id": 28,
+        "Name": "Lizardfolk",
+        "Description": "VGM"
+    },
+    {
+        "Id": 29,
+        "Name": "Minotaur",
+        "Description": "GGR"
+    },
+    {
+        "Id": 30,
+        "Name": "Orc",
+        "Description": "VGM"
+    },
+    {
+        "Id": 31,
+        "Name": "Plasmoid",
+        "Description": "SAS"
+    },
+    {
+        "Id": 32,
+        "Name": "Half-orc",
+        "Description": "PH"
+    },
+    {
+        "Id": 33,
+        "Name": "Halfling",
+        "Description": "PH"
+    },
+    {
+        "Id": 34,
+        "Name": "Half-elf",
+        "Description": "PH"
+    },
+    {
+        "Id": 35,
+        "Name": "Satyr",
+        "Description": "MOT"
+    },
+    {
+        "Id": 36,
+        "Name": "Owlin",
+        "Description": "SCC"
+    },
+    {
+        "Id": 37,
+        "Name": "Tabaxi",
+        "Description": "VGM"
+    },
+    {
+        "Id": 38,
+        "Name": "Tiefling",
+        "Description": "PH"
+    },
+    {
+        "Id": 39,
+        "Name": "Tortle",
+        "Description": "TP"
+    },
+    {
+        "Id": 40,
+        "Name": "Thri-kreen",
+        "Description": "SAS"
+    },
+    {
+        "Id": 41,
+        "Name": "Triton",
+        "Description": "VGM"
+    },
+    {
+        "Id": 42,
+        "Name": "Firbolg",
+        "Description": "VGM"
+    },
+    {
+        "Id": 43,
+        "Name": "Fairy",
+        "Description": "WBW"
+    },
+    {
+        "Id": 44,
+        "Name": "Hadozee",
+        "Description": "SAS"
+    },
+    {
+        "Id": 45,
+        "Name": "Hobgoblin",
+        "Description": "VGM"
+    },
+    {
+        "Id": 46,
+        "Name": "Changeling",
+        "Description": "RLW"
+    },
+    {
+        "Id": 47,
+        "Name": "Human",
+        "Description": "PH"
+    },
+    {
+        "Id": 48,
+        "Name": "Shifter",
+        "Description": "RLW"
+    },
+    {
+        "Id": 49,
+        "Name": "Elf",
+        "Description": "PH"
+    },
+    {
+        "Id": 50,
+        "Name": "Yuan-ti Pureblood",
+        "Description": "VGM"
+    },
+    {
+        "Id": 51,
+        "Name": "Hexblood",
+        "Description": "VRGR"
+    },
+    {
+        "Id": 52,
+        "Name": "Reborn",
+        "Description": "VRGR"
+    },
+    {
+        "Id": 53,
+        "Name": "Dhampir",
+        "Description": "VRGR"
+    },
+    {
+        "Id": 54,
+        "Name": "Custom lineage",
+        "Description": "TCE"
+    },
+    {
+        "Id": 55,
+        "Name": "Aarakocra",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 56,
+        "Name": "Aasimar",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 57,
+        "Name": "Bugbear",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 58,
+        "Name": "Githzerai",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 59,
+        "Name": "Githyanki",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 60,
+        "Name": "Deep Gnome",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 61,
+        "Name": "Goblin",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 62,
+        "Name": "Goliath",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 63,
+        "Name": "Genasi",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 64,
+        "Name": "Duergar",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 65,
+        "Name": "Harengon",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 66,
+        "Name": "Kenku",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 67,
+        "Name": "Centaur",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 68,
+        "Name": "Kobold",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 69,
+        "Name": "Lizardfolk",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 70,
+        "Name": "Minotaur",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 71,
+        "Name": "Sea Elf",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 72,
+        "Name": "Orc",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 73,
+        "Name": "Satyr",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 74,
+        "Name": "Tabaxi",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 75,
+        "Name": "Tortle",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 76,
+        "Name": "Triton",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 77,
+        "Name": "Firbolg",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 78,
+        "Name": "Fairy",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 79,
+        "Name": "Hobgoblin",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 80,
+        "Name": "Changeling",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 81,
+        "Name": "Shadar-Kai",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 82,
+        "Name": "Shifter",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 83,
+        "Name": "Eladrin",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 84,
+        "Name": "Yuan-Ti",
+        "Description": "MPMM"
+    },
+    {
+        "Id": 85,
+        "Name": "Glitchling",
+        "Description": "UA, HB"
+    },
+    {
+        "Id": 86,
+        "Name": "Revenant",
+        "Description": "UA, HB"
+    },
+    {
+        "Id": 87,
+        "Name": "Hobgoblin of the Feywild",
+        "Description": "UA, HB"
+    },
+    {
+        "Id": 88,
+        "Name": "Aven",
+        "Description": "PS:A, HB"
+    },
+    {
+        "Id": 89,
+        "Name": "Minotaur",
+        "Description": "PS:A, HB"
+    },
+    {
+        "Id": 90,
+        "Name": "Naga",
+        "Description": "PS:A, HB"
+    },
+    {
+        "Id": 91,
+        "Name": "Khenra",
+        "Description": "PS:A, HB"
+    },
+    {
+        "Id": 92,
+        "Name": "Human",
+        "Description": "PS:A, HB"
+    },
+    {
+        "Id": 93,
+        "Name": "People of Innistrad",
+        "Description": "PS:In, HB"
+    },
+    {
+        "Id": 94,
+        "Name": "Gnoll",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 95,
+        "Name": "Gnome",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 96,
+        "Name": "Dhampir",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 97,
+        "Name": "Dwarf",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 98,
+        "Name": "Winterfolk halflings",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 99,
+        "Name": "Centaur",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 100,
+        "Name": "Kobolds of Midgard",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 101,
+        "Name": "Gearforged",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 102,
+        "Name": "Human of Midgard",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 103,
+        "Name": "Ravenfolk",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 104,
+        "Name": "Ratfolk",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 105,
+        "Name": "Bearfolk",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 106,
+        "Name": "Minotaur",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 107,
+        "Name": "Shadow fey",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 108,
+        "Name": "Trollkin",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 109,
+        "Name": "Elf",
+        "Description": "HB:MHH, HB"
+    },
+    {
+        "Id": 110,
+        "Name": "Accursed Tiefling",
+        "Description": "HB:SGEH, HB"
+    },
+    {
+        "Id": 111,
+        "Name": "Elkian",
+        "Description": "HB"
+    },
+    {
+        "Id": 112,
+        "Name": "Vegepygmy",
+        "Description": "HB:SC, HB"
+    },
+    {
+        "Id": 113,
+        "Name": "Deep One Dwarf (Y'ha-nthlei)",
+        "Description": "HB:SGEH, HB"
+    },
+    {
+        "Id": 114,
+        "Name": "Gobbok",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 115,
+        "Name": "Golynn",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 116,
+        "Name": "Graceza",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 117,
+        "Name": "Dhampir",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 118,
+        "Name": "Drevan",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 119,
+        "Name": "Isetsu",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 120,
+        "Name": "Cadaver",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 121,
+        "Name": "Kitsune",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 122,
+        "Name": "Catfolk",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 123,
+        "Name": "Lipsick",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 124,
+        "Name": "Lotol",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 125,
+        "Name": "Lion Turtle",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 126,
+        "Name": "Manikin",
+        "Description": "HB:SGEH, HB"
+    },
+    {
+        "Id": 127,
+        "Name": "Mycelian",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 128,
+        "Name": "Mousefolk",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 129,
+        "Name": "Hishikin",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 130,
+        "Name": "Ombrask",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 131,
+        "Name": "Oniborne",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 132,
+        "Name": "Demidritch",
+        "Description": "HB:SGEH, HB"
+    },
+    {
+        "Id": 133,
+        "Name": "Scourgeborne",
+        "Description": "HB:SGEH, HB"
+    },
+    {
+        "Id": 134,
+        "Name": "Awakened",
+        "Description": "HB:SC, HB"
+    },
+    {
+        "Id": 135,
+        "Name": "Cursed-Blood",
+        "Description": "HB:SGEH, HB"
+    },
+    {
+        "Id": 136,
+        "Name": "Ryujin",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 137,
+        "Name": "Silva",
+        "Description": "HB:SC, HB"
+    },
+    {
+        "Id": 138,
+        "Name": "Slimee",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 139,
+        "Name": "Oozekin",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 140,
+        "Name": "Stick'Ti'Kal",
+        "Description": "HB:MF, HB"
+    },
+    {
+        "Id": 141,
+        "Name": "Cnidaran",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 142,
+        "Name": "Teratect",
+        "Description": "HB:CN, HB"
+    },
+    {
+        "Id": 143,
+        "Name": "Smoldering",
+        "Description": "HB:CN, HB"
+    },
+    {
+        "Id": 144,
+        "Name": "Tengu",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 145,
+        "Name": "Florene",
+        "Description": "HB:CN, HB"
+    },
+    {
+        "Id": 146,
+        "Name": "Fuyohren",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 147,
+        "Name": "Hanamori",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 148,
+        "Name": "Haniwa",
+        "Description": "HB:RGYR, HB"
+    },
+    {
+        "Id": 149,
+        "Name": "Cyclopian",
+        "Description": "HB:HGMH, HB"
+    },
+    {
+        "Id": 150,
+        "Name": "Enkoh",
+        "Description": "HB:RGYR, HB"
+    }
+]
